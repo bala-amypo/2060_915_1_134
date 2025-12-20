@@ -1,0 +1,17 @@
+package com.example.demo.service;
+
+import com.example.demo.model.PatientProfile;
+import java.util.*;
+
+public interface PatientProfileService {
+
+    PatientProfile createPatient(PatientProfile profile);
+
+    PatientProfile getPatientById(Long id);
+
+    PatientProfile updatePatientStatus(Long id, boolean active);
+
+    Optional<PatientProfile> findByPatientId(String patientId);
+
+    List<PatientProfile> getAllPatients();
+}
