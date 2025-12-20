@@ -1,12 +1,18 @@
 package com.example.demo.repository;
 
-import java.util.*;
-import com.example.demo.model.*;
+import com.example.demo.model.DailySymptomLog;
+
+import java.time.LocalDate;   // ✅ REQUIRED IMPORT
+import java.util.List;
+import java.util.Optional;
 
 public interface DailySymptomLogRepository {
-    Optional<DailySymptomLog> findByPatientIdAndLogDate(Long id, LocalDate d);
-    Optional<DailySymptomLog> findById(Long id);
-    List<DailySymptomLog> findByPatientId(Long id);
-    DailySymptomLog save(DailySymptomLog d);
 
+    Optional<DailySymptomLog> findByPatientIdAndLogDate(Long patientId, LocalDate logDate);
+
+    Optional<DailySymptomLog> findById(Long id);
+
+    List<DailySymptomLog> findByPatientId(Long patientId);
+
+    DailySymptomLog save(DailySymptomLog log);
 }
