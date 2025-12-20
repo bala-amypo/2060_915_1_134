@@ -4,6 +4,9 @@ import java.util.*;
 import com.example.demo.model.*;
 
 public interface AppUserRepository {
-    Optional<AppUser> findByEmail(String email);
-    AppUser save(AppUser user);
+    Optional<DailySymptomLog> findByPatientIdAndLogDate(Long id, LocalDate d);
+    Optional<DailySymptomLog> findById(Long id);
+    List<DailySymptomLog> findByPatientId(Long id);
+    DailySymptomLog save(DailySymptomLog d);
+
 }
