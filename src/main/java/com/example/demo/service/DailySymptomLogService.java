@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.DailySymptomLog;
+
 import java.util.List;
 
 public interface DailySymptomLogService {
@@ -9,5 +10,5 @@ public interface DailySymptomLogService {
 
     List<DailySymptomLog> getLogsByPatient(Long patientId);
 
-    DailySymptomLog updateSymptomLog(Long logId, DailySymptomLog updated);
+    DailySymptomLog updateSymptomLog(Long logId, DailySymptomLog log);
 }

@@ -1,46 +1,41 @@
-package com.example.demo.controller;
+package com.example.demo.service.impl;
 
 import com.example.demo.model.DailySymptomLog;
+import com.example.demo.repository.DailySymptomLogRepository;
 import com.example.demo.service.DailySymptomLogService;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/symptom-logs")
-public class DailySymptomLogController {
+@Service
+public class DailySymptomLogServiceImpl implements DailySymptomLogService {
 
-    private final DailySymptomLogService logService;
+    private final DailySymptomLogRepository repo;
 
-    // Constructor injection
-    public DailySymptomLogController(DailySymptomLogService logService) {
-        this.logService = logService;
+    public DailySymptomLogServiceImpl(DailySymptomLogRepository repo) {
+        this.repo = repo;
     }
 
-    /**
-     * Record daily symptom log
-     */
-    @PostMapping
-    public DailySymptomLog recordLog(@RequestBody DailySymptomLog log) {
-        return logService.recordSymptomLog(log);
+    @Override
+    public DailySymptomLog recordSymptomLog(DailySymptomLog log) {
+        return repo.save(log);
     }
 
-    /**
-     * Get all logs for a patient
-     */
-    @GetMapping("/patient/{patientId}")
-    public List<DailySymptomLog> getLogsByPatient(@PathVariable Long patientId) {
-        return logService.getLogsByPatient(patientId);
+    @Override
+    public List<DailySymptomLog> getLogsByPatient(Long patientId) {
+        return repo.findByPatientId(patientId);
     }
 
-    /**
-     * Update an existing symptom log
-     */
-    @PutMapping("/{logId}")
-    public DailySymptomLog updateLog(
-            @PathVariable Long logId,
-            @RequestBody DailySymptomLog updatedLog) {
-        return logService.updateSymptomLog(logId, updatedLog);
+    @Override
+    public DailySymptomLog updateSymptomLog(Long logId, DailySymptomLog log) {
+        DailySymptomLog existing = repo.findById(logId)
+                .orElseThrow(() -> new RuntimeException("Log not found"));
+
+        existing.setPainLevel(log.getPainLevel());
+        existing.setMobilityLevel(log.getMobilityLevel());
+        existing.setFatigueLevel(log.getFatigueLevel());
+
+        return repo.save(existing);
     }
 }

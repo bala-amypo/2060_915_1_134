@@ -1,13 +1,12 @@
 package com.example.demo.service;
 
 import com.example.demo.model.RecoveryCurveProfile;
-import java.util.List;
+
+import java.util.Optional;
 
 public interface RecoveryCurveService {
 
-    RecoveryCurveProfile createCurveEntry(RecoveryCurveProfile profile);
+    RecoveryCurveProfile createCurve(RecoveryCurveProfile profile);
 
-    List<RecoveryCurveProfile> getCurveForSurgery(String surgeryType);
-
-    List<RecoveryCurveProfile> getAllCurves();
+    Optional<RecoveryCurveProfile> getCurveBySurgeryType(String surgeryType);
 }
