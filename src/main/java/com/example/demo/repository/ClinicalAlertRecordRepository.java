@@ -1,12 +1,12 @@
 package com.example.demo.repository;
 
-import java.util.*;
-import com.example.demo.model.*;
+import com.example.demo.model.ClinicalAlertRecord;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClinicalAlertRecordRepository {
-    Optional<ClinicalAlertRecord> findById(Long id);
-    List<ClinicalAlertRecord> findByPatientId(Long id);
-    List<ClinicalAlertRecord> findAll();
-    ClinicalAlertRecord save(ClinicalAlertRecord c);
+import java.util.List;
 
+public interface ClinicalAlertRecordRepository
+        extends JpaRepository<ClinicalAlertRecord, Long> {
+
+    List<ClinicalAlertRecord> findByPatientId(Long patientId);
 }
