@@ -1,63 +1,46 @@
-package com.example.demo.service.impl;
+package com.example.demo.controller;
 
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.*;
-import com.example.demo.repository.*;
-import com.example.demo.service.*;
+import com.example.demo.model.DailySymptomLog;
+import com.example.demo.service.DailySymptomLogService;
 
-import java.time.temporal.ChronoUnit;
-import java.util.*;
+import org.springframework.web.bind.annotation.*;
 
-public class DailySymptomLogServiceImpl implements DailySymptomLogService {
+import java.util.List;
 
-    private final DailySymptomLogRepository logRepo;
-    private final PatientProfileRepository patientRepo;
-    private final RecoveryCurveService curveService;
-    private final DeviationRuleService ruleService;
-    private final ClinicalAlertService alertService;
+@RestController
+@RequestMapping("/symptom-logs")
+public class DailySymptomLogController {
 
-    public DailySymptomLogServiceImpl(
-            DailySymptomLogRepository l,
-            PatientProfileRepository p,
-            RecoveryCurveService c,
-            DeviationRuleService r,
-            ClinicalAlertService a) {
+    private final DailySymptomLogService logService;
 
-        this.logRepo = l;
-        this.patientRepo = p;
-        this.curveService = c;
-        this.ruleService = r;
-        this.alertService = a;
+    // Constructor injection
+    public DailySymptomLogController(DailySymptomLogService logService) {
+        this.logService = logService;
     }
 
-    public DailySymptomLog recordSymptomLog(DailySymptomLog log) {
-
-        PatientProfile patient = patientRepo.findById(log.getPatientId())
-                .orElseThrow(() -> new ResourceNotFoundException("Patient"));
-
-        logRepo.findByPatientIdAndLogDate(log.getPatientId(), log.getLogDate())
-                .ifPresent(l -> { throw new IllegalArgumentException("Duplicate"); });
-
-        return logRepo.save(log);
+    /**
+     * Record daily symptom log
+     */
+    @PostMapping
+    public DailySymptomLog recordLog(@RequestBody DailySymptomLog log) {
+        return logService.recordSymptomLog(log);
     }
 
-    public List<DailySymptomLog> getLogsByPatient(Long id) {
-        patientRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Patient"));
-        return logRepo.findByPatientId(id);
+    /**
+     * Get all logs for a patient
+     */
+    @GetMapping("/patient/{patientId}")
+    public List<DailySymptomLog> getLogsByPatient(@PathVariable Long patientId) {
+        return logService.getLogsByPatient(patientId);
     }
 
-    public DailySymptomLog updateSymptomLog(Long id, DailySymptomLog updated) {
-        DailySymptomLog existing = logRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Log"));
-
-        patientRepo.findById(updated.getPatientId())
-                .orElseThrow(() -> new ResourceNotFoundException("Patient"));
-
-        existing.setPainLevel(updated.getPainLevel());
-        existing.setMobilityLevel(updated.getMobilityLevel());
-        existing.setFatigueLevel(updated.getFatigueLevel());
-
-        return logRepo.save(existing);
+    /**
+     * Update an existing symptom log
+     */
+    @PutMapping("/{logId}")
+    public DailySymptomLog updateLog(
+            @PathVariable Long logId,
+            @RequestBody DailySymptomLog updatedLog) {
+        return logService.updateSymptomLog(logId, updatedLog);
     }
 }
