@@ -6,5 +6,5 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    // Empty on purpose – tests do not need security filters
+    
 }
