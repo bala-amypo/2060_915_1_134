@@ -11,43 +11,30 @@ import java.util.List;
 @RequestMapping("/alerts")
 public class ClinicalAlertController {
 
-    private final ClinicalAlertService alertService;
+    private final ClinicalAlertService service;
 
-    // Constructor injection
-    public ClinicalAlertController(ClinicalAlertService alertService) {
-        this.alertService = alertService;
+    public ClinicalAlertController(ClinicalAlertService service) {
+        this.service = service;
     }
 
-    /**
-     * Resolve an alert
-     */
-    @PutMapping("/{alertId}/resolve")
-    public ClinicalAlertRecord resolveAlert(@PathVariable Long alertId) {
-        return alertService.resolveAlert(alertId);
+    @PutMapping("/{id}/resolve")
+    public ClinicalAlertRecord resolve(@PathVariable Long id) {
+        return service.resolveAlert(id);
     }
 
-    /**
-     * Get alerts by patient ID
-     */
-    @GetMapping("/patient/{patientId}")
-    public List<ClinicalAlertRecord> getAlertsByPatient(@PathVariable Long patientId) {
-        return alertService.getAlertsByPatient(patientId);
-    }
-
-    /**
-     * Get alert by alert ID
-     */
-    @GetMapping("/{alertId}")
-    public ClinicalAlertRecord getAlertById(@PathVariable Long alertId) {
-        return alertService.getAlertById(alertId)
+    @GetMapping("/{id}")
+    public ClinicalAlertRecord getById(@PathVariable Long id) {
+        return service.getAlertById(id)
                 .orElseThrow(() -> new RuntimeException("Alert not found"));
     }
 
-    /**
-     * Get all alerts
-     */
+    @GetMapping("/patient/{patientId}")
+    public List<ClinicalAlertRecord> getByPatient(@PathVariable Long patientId) {
+        return service.getAlertsByPatient(patientId);
+    }
+
     @GetMapping
-    public List<ClinicalAlertRecord> getAllAlerts() {
-        return alertService.getAllAlerts();
+    public List<ClinicalAlertRecord> getAll() {
+        return service.getAllAlerts();
     }
 }
