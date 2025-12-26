@@ -17,53 +17,29 @@ public class DailySymptomLog {
     private Integer mobilityLevel;
     private Integer fatigueLevel;
 
+    private String additionalNotes;
+
     public DailySymptomLog() {}
 
-    public Long getId() {
-        return id;
-    }
+    // getters & setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getPatientId() {
-        return patientId;
-    }
+    public Long getPatientId() { return patientId; }
+    public void setPatientId(Long patientId) { this.patientId = patientId; }
 
-    public LocalDate getLogDate() {
-        return logDate;
-    }
+    public LocalDate getLogDate() { return logDate; }
+    public void setLogDate(LocalDate logDate) { this.logDate = logDate; }
 
-    public Integer getPainLevel() {
-        return painLevel;
-    }
+    public Integer getPainLevel() { return painLevel; }
+    public void setPainLevel(Integer painLevel) { this.painLevel = painLevel; }
 
-    public Integer getMobilityLevel() {
-        return mobilityLevel;
-    }
+    public Integer getMobilityLevel() { return mobilityLevel; }
+    public void setMobilityLevel(Integer mobilityLevel) { this.mobilityLevel = mobilityLevel; }
 
-    public Integer getFatigueLevel() {
-        return fatigueLevel;
-    }
+    public Integer getFatigueLevel() { return fatigueLevel; }
+    public void setFatigueLevel(Integer fatigueLevel) { this.fatigueLevel = fatigueLevel; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setPatientId(Long patientId) {
-        this.patientId = patientId;
-    }
-
-    public void setLogDate(LocalDate logDate) {
-        this.logDate = logDate;
-    }
-
-    public void setPainLevel(Integer painLevel) {
-        this.painLevel = painLevel;
-    }
-
-    public void setMobilityLevel(Integer mobilityLevel) {
-        this.mobilityLevel = mobilityLevel;
-    }
-
-    public void setFatigueLevel(Integer fatigueLevel) {
-        this.fatigueLevel = fatigueLevel;
-    }
+    public String getAdditionalNotes() { return additionalNotes; }
+    public void setAdditionalNotes(String additionalNotes) { this.additionalNotes = additionalNotes; }
 }
