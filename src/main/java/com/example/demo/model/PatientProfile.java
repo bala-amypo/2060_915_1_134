@@ -19,7 +19,7 @@ public class PatientProfile {
     private LocalDateTime createdAt;
 
     // --------------------
-    // Constructors
+    // Constructor
     // --------------------
     public PatientProfile() {
     }
@@ -84,7 +84,7 @@ public class PatientProfile {
     }
 
     // --------------------
-    // MANUAL BUILDER (NO LOMBOK)
+    // Manual Builder (NO Lombok)
     // --------------------
     public static Builder builder() {
         return new Builder();
@@ -119,4 +119,18 @@ public class PatientProfile {
             return this;
         }
 
-        public Builder active(Boolean active)
+        public Builder active(Boolean active) {
+            p.setActive(active);
+            return this;
+        }
+
+        public Builder createdAt(LocalDateTime createdAt) {
+            p.setCreatedAt(createdAt);
+            return this;
+        }
+
+        public PatientProfile build() {
+            return p;
+        }
+    }
+}
