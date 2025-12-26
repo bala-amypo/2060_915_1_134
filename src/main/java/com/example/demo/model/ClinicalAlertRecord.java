@@ -10,40 +10,34 @@ public class ClinicalAlertRecord {
     private Long id;
 
     private Long patientId;
-    private String alertMessage;
-    private boolean resolved = false;
+    private Long logId;
+    private String alertType;
+    private String severity;
+    private String message;
+
+    private Boolean resolved = false;
 
     public ClinicalAlertRecord() {}
 
-    public Long getId() {
-        return id;
-    }
+    // getters & setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public Long getPatientId() {
-        return patientId;
-    }
+    public Long getPatientId() { return patientId; }
+    public void setPatientId(Long patientId) { this.patientId = patientId; }
 
-    public String getAlertMessage() {
-        return alertMessage;
-    }
+    public Long getLogId() { return logId; }
+    public void setLogId(Long logId) { this.logId = logId; }
 
-    public boolean isResolved() {
-        return resolved;
-    }
+    public String getAlertType() { return alertType; }
+    public void setAlertType(String alertType) { this.alertType = alertType; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getSeverity() { return severity; }
+    public void setSeverity(String severity) { this.severity = severity; }
 
-    public void setPatientId(Long patientId) {
-        this.patientId = patientId;
-    }
+    public String getMessage() { return message; }
+    public void setMessage(String message) { this.message = message; }
 
-    public void setAlertMessage(String alertMessage) {
-        this.alertMessage = alertMessage;
-    }
-
-    public void setResolved(boolean resolved) {
-        this.resolved = resolved;
-    }
+    public Boolean getResolved() { return resolved; }
+    public void setResolved(Boolean resolved) { this.resolved = resolved; }
 }

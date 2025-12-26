@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class PatientProfile {
@@ -9,51 +10,35 @@ public class PatientProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String patientName;
-    private Integer age;
+    private String patientId;
+    private String fullName;
+    private String email;
     private String surgeryType;
 
-    private boolean active = true;
+    private Boolean active = true;
+    private LocalDateTime createdAt;
 
     public PatientProfile() {}
 
-    public Long getId() {
-        return id;
-    }
+    // getters & setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getPatientName() {
-        return patientName;
-    }
+    public String getPatientId() { return patientId; }
+    public void setPatientId(String patientId) { this.patientId = patientId; }
 
-    public Integer getAge() {
-        return age;
-    }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    public String getSurgeryType() {
-        return surgeryType;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public boolean isActive() {
-        return active;
-    }
+    public String getSurgeryType() { return surgeryType; }
+    public void setSurgeryType(String surgeryType) { this.surgeryType = surgeryType; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public void setSurgeryType(String surgeryType) {
-        this.surgeryType = surgeryType;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }

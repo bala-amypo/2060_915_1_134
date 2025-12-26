@@ -9,32 +9,31 @@ public class DeviationRule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String metric;
+    private String ruleCode;
+    private String parameter;
     private Integer threshold;
+    private String severity;
+
+    private Boolean active = true;
 
     public DeviationRule() {}
 
-    public Long getId() {
-        return id;
-    }
+    // getters & setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getMetric() {
-        return metric;
-    }
+    public String getRuleCode() { return ruleCode; }
+    public void setRuleCode(String ruleCode) { this.ruleCode = ruleCode; }
 
-    public Integer getThreshold() {
-        return threshold;
-    }
+    public String getParameter() { return parameter; }
+    public void setParameter(String parameter) { this.parameter = parameter; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Integer getThreshold() { return threshold; }
+    public void setThreshold(Integer threshold) { this.threshold = threshold; }
 
-    public void setMetric(String metric) {
-        this.metric = metric;
-    }
+    public String getSeverity() { return severity; }
+    public void setSeverity(String severity) { this.severity = severity; }
 
-    public void setThreshold(Integer threshold) {
-        this.threshold = threshold;
-    }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 }
