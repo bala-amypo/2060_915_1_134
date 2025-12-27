@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PatientProfileService {
-    PatientProfile createPatient(PatientProfile patient);
+    PatientProfile createPatient(PatientProfile profile);
     PatientProfile getPatientById(Long id);
     List<PatientProfile> getAllPatients();
     PatientProfile updatePatientStatus(Long id, boolean active);
