@@ -1,58 +1,40 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "deviation_rule")
+@Table(name = "deviation_rules")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DeviationRule {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String ruleName;
-    private String description;
-    private Double threshold;
+    private String ruleCode;
 
-    public DeviationRule() {
-    }
+    @NotBlank
+    private String surgeryType;
 
-    public DeviationRule(Long id, String ruleName, String description, Double threshold) {
-        this.id = id;
-        this.ruleName = ruleName;
-        this.description = description;
-        this.threshold = threshold;
-    }
+    @NotBlank
+    private String parameter;
 
-    public Long getId() {
-        return id;
-    }
+    @NotNull
+    @Positive
+    private Integer threshold;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @NotBlank
+    private String severity;
 
-    public String getRuleName() {
-        return ruleName;
-    }
-
-    public void setRuleName(String ruleName) {
-        this.ruleName = ruleName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getThreshold() {
-        return threshold;
-    }
-
-    public void setThreshold(Double threshold) {
-        this.threshold = threshold;
-    }
+    @Builder.Default
+    private Boolean active = true;
 }
