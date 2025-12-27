@@ -1,11 +1,55 @@
-package com.example.demo.repository;
+package com.example.demo.model;
 
-import java.util.Optional;
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.demo.model.PatientProfile;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
-public interface PatientProfileRepository
-        extends JpaRepository<PatientProfile, Long> {
+import java.time.LocalDateTime;
 
-    Optional<PatientProfile> findByPatientId(String patientId);
+@Entity
+@Table(name = "patient_profiles")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class PatientProfile {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @NotBlank
+    @Column(unique = true)
+    private String patientId;
+    
+    @NotBlank
+    private String fullName;
+    
+    @NotNull
+    @Positive
+    private Integer age;
+    
+    @Email
+    @NotBlank
+    @Column(unique = true)
+    private String email;
+    
+    @NotBlank
+    private String surgeryType;
+    
+    @Builder.Default
+    private Boolean active = true;
+    
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    
+    public PatientProfile(String patientId, String fullName, Integer age, String email, String surgeryType) {
+        this.patientId = patientId;
+        this.fullName = fullName;
+        this.age = age;
+        this.email = email;
+        this.surgeryType = surgeryType;
+        this.active = true;
+    }
 }
