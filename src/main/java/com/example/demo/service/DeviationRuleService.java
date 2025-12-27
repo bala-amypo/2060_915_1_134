@@ -1,18 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.model.DeviationRule;
-
-import java.util.List;
-import java.util.Optional;
-
-public interface DeviationRuleService {
-    DeviationRule createRule(DeviationRule rule);
-    Optional<DeviationRule> getRuleByCode(String ruleCode);
-    List<DeviationRule> getRulesBySurgery(String surgeryType);
-    List<DeviationRule> getActiveRules();
-    DeviationRule updateRule(Long id, DeviationRule rule);
-}package com.example.demo.service;
-
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -34,13 +21,14 @@ public class DeviationRuleService {
         return repository.save(rule);
     }
 
-    // GET BY ID  ✅ (THIS WAS MISSING)
+    // GET BY ID
     public DeviationRule getRuleById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("DeviationRule not found with id " + id));
+                .orElseThrow(() -> new RuntimeException(
+                        "DeviationRule not found with id " + id));
     }
 
-    // GET ALL ✅ (THIS WAS MISSING)
+    // GET ALL
     public List<DeviationRule> getAllRules() {
         return repository.findAll();
     }
