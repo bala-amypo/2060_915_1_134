@@ -1,55 +1,32 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "daily_symptom_logs", uniqueConstraints = @UniqueConstraint(columnNames = {"patient_id", "log_date"}))
+@Table(name = "daily_symptom_logs", indexes = {
+        @Index(name = "idx_patient_date", columnList = "patientId,logDate", unique = true)
+})
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class DailySymptomLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(name = "patient_id")
-    private Long patientId;
+    private Long patientId; // FK reference to PatientProfile.id
 
-    @NotNull
-    @PastOrPresent
-    @Column(name = "log_date")
     private LocalDate logDate;
 
-    @NotNull
-    @Min(0)
-    @Max(10)
     private Integer painLevel;
 
-    @NotNull
-    @Min(0)
-    @Max(10)
     private Integer mobilityLevel;
 
-    @NotNull
-    @Min(0)
-    @Max(10)
     private Integer fatigueLevel;
 
-    @Lob
-    @Size(max = 2000)
     private String additionalNotes;
-
-    @CreationTimestamp
-    private LocalDateTime submittedAt;
 }
