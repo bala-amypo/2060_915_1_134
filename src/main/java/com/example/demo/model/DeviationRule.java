@@ -1,39 +1,13 @@
-package com.example.demo.model;
+package com.example.demo.repository;
 
-import jakarta.persistence.*;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.demo.model.DeviationRule;
 
-@Entity
-public class DeviationRule {
+public interface DeviationRuleRepository
+        extends JpaRepository<DeviationRule, Long> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String ruleCode;
-    private String parameter;
-    private Integer threshold;
-    private String severity;
-
-    private Boolean active = true;
-
-    public DeviationRule() {}
-
-    // getters & setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getRuleCode() { return ruleCode; }
-    public void setRuleCode(String ruleCode) { this.ruleCode = ruleCode; }
-
-    public String getParameter() { return parameter; }
-    public void setParameter(String parameter) { this.parameter = parameter; }
-
-    public Integer getThreshold() { return threshold; }
-    public void setThreshold(Integer threshold) { this.threshold = threshold; }
-
-    public String getSeverity() { return severity; }
-    public void setSeverity(String severity) { this.severity = severity; }
-
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
+    Optional<DeviationRule> findByRuleCode(String ruleCode);
+    List<DeviationRule> findByActiveTrue();
 }

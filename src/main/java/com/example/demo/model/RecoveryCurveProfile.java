@@ -1,38 +1,12 @@
-package com.example.demo.model;
+package com.example.demo.repository;
 
-import jakarta.persistence.*;
+import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.demo.model.RecoveryCurveProfile;
 
-@Entity
-public class RecoveryCurveProfile {
+public interface RecoveryCurveProfileRepository
+        extends JpaRepository<RecoveryCurveProfile, Long> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String surgeryType;
-    private Integer dayNumber;
-    private Integer expectedPainLevel;
-    private Integer expectedMobilityLevel;
-    private Integer expectedFatigueLevel;
-
-    public RecoveryCurveProfile() {}
-
-    // getters & setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getSurgeryType() { return surgeryType; }
-    public void setSurgeryType(String surgeryType) { this.surgeryType = surgeryType; }
-
-    public Integer getDayNumber() { return dayNumber; }
-    public void setDayNumber(Integer dayNumber) { this.dayNumber = dayNumber; }
-
-    public Integer getExpectedPainLevel() { return expectedPainLevel; }
-    public void setExpectedPainLevel(Integer expectedPainLevel) { this.expectedPainLevel = expectedPainLevel; }
-
-    public Integer getExpectedMobilityLevel() { return expectedMobilityLevel; }
-    public void setExpectedMobilityLevel(Integer expectedMobilityLevel) { this.expectedMobilityLevel = expectedMobilityLevel; }
-
-    public Integer getExpectedFatigueLevel() { return expectedFatigueLevel; }
-    public void setExpectedFatigueLevel(Integer expectedFatigueLevel) { this.expectedFatigueLevel = expectedFatigueLevel; }
+    List<RecoveryCurveProfile>
+    findBySurgeryTypeOrderByDayNumberAsc(String surgeryType);
 }

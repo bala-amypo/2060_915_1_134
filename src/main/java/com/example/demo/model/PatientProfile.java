@@ -1,21 +1,11 @@
-package com.example.demo.model;
+package com.example.demo.repository;
 
-import jakarta.persistence.*;
-import lombok.*;
+import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.demo.model.PatientProfile;
 
-@Entity
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class PatientProfile {
+public interface PatientProfileRepository
+        extends JpaRepository<PatientProfile, Long> {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String patientId;
-    private String name;
-    private int age;
-    private boolean active;
+    Optional<PatientProfile> findByPatientId(String patientId);
 }
