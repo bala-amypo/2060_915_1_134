@@ -1,11 +1,11 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.DeviationRule;
-import com.example.demo.service.DeviationRuleService;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.example.demo.model.DeviationRule;
+import com.example.demo.service.DeviationRuleService;
 
 @RestController
 @RequestMapping("/deviation-rules")
@@ -17,19 +17,28 @@ public class DeviationRuleController {
         this.service = service;
     }
 
+    // CREATE
     @PostMapping
-    public DeviationRule create(@RequestBody DeviationRule rule) {
+    public DeviationRule createRule(@RequestBody DeviationRule rule) {
         return service.createRule(rule);
     }
 
+    // GET BY ID
     @GetMapping("/{id}")
-    public DeviationRule getById(@PathVariable Long id) {
-        return service.getRuleById(id)
-                .orElseThrow(() -> new RuntimeException("Rule not found"));
+    public DeviationRule getRuleById(@PathVariable Long id) {
+        return service.getRuleById(id);
     }
 
+    // GET ALL
     @GetMapping
-    public List<DeviationRule> getAll() {
+    public List<DeviationRule> getAllRules() {
         return service.getAllRules();
+    }
+
+    // DELETE
+    @DeleteMapping("/{id}")
+    public String deleteRule(@PathVariable Long id) {
+        service.deleteRule(id);
+        return "DeviationRule deleted successfully";
     }
 }
