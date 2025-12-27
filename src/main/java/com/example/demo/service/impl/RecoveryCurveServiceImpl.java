@@ -6,34 +6,29 @@ import com.example.demo.service.RecoveryCurveService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RecoveryCurveServiceImpl implements RecoveryCurveService {
-    
-    private final RecoveryCurveProfileRepository recoveryCurveProfileRepository;
-    
-    public RecoveryCurveServiceImpl(RecoveryCurveProfileRepository recoveryCurveProfileRepository) {
-        this.recoveryCurveProfileRepository = recoveryCurveProfileRepository;
+
+    private final RecoveryCurveProfileRepository repository;
+
+    public RecoveryCurveServiceImpl(RecoveryCurveProfileRepository repository) {
+        this.repository = repository;
     }
-    
+
     @Override
-    public RecoveryCurveProfile createCurveEntry(RecoveryCurveProfile entry) {
-        return recoveryCurveProfileRepository.save(entry);
+    public RecoveryCurveProfile createCurveEntry(RecoveryCurveProfile curve) {
+        return repository.save(curve);
     }
-    
+
     @Override
     public List<RecoveryCurveProfile> getCurveForSurgery(String surgeryType) {
-        return recoveryCurveProfileRepository.findBySurgeryTypeOrderByDayNumberAsc(surgeryType);
+        return repository.findBySurgeryTypeOrderByDayNumberAsc(surgeryType);
     }
-    
+
     @Override
     public List<RecoveryCurveProfile> getAllCurves() {
-        return recoveryCurveProfileRepository.findAll();
-    }
-    
-    @Override
-    public Optional<RecoveryCurveProfile> getCurveByDayAndSurgery(String surgeryType, Integer dayNumber) {
-        return recoveryCurveProfileRepository.findBySurgeryTypeAndDayNumber(surgeryType, dayNumber);
+        return repository.findAll();
     }
 }
+
