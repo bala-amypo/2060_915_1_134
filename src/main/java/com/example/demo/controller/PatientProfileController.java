@@ -2,39 +2,54 @@ package com.example.demo.controller;
 
 import com.example.demo.model.PatientProfile;
 import com.example.demo.service.PatientProfileService;
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/patients")
+@RequestMapping("/api/patients")
+@Tag(name = "Patient Profile", description = "Patient profile management")
 public class PatientProfileController {
-
-    private final PatientProfileService service;
-
-    public PatientProfileController(PatientProfileService service) {
-        this.service = service;
+    
+    private final PatientProfileService patientProfileService;
+    
+    public PatientProfileController(PatientProfileService patientProfileService) {
+        this.patientProfileService = patientProfileService;
     }
-
+    
     @PostMapping
-    public PatientProfile create(@RequestBody PatientProfile profile) {
-        return service.createPatient(profile);
+    @Operation(summary = "Create patient profile")
+    public ResponseEntity<PatientProfile> createPatient(@Valid @RequestBody PatientProfile patient) {
+        return ResponseEntity.ok(patientProfileService.createPatient(patient));
     }
-
+    
     @GetMapping("/{id}")
-    public PatientProfile getById(@PathVariable Long id) {
-        return service.getPatientById(id)
-                .orElseThrow(() -> new RuntimeException("Patient not found"));
+    @Operation(summary = "Get patient by ID")
+    public ResponseEntity<PatientProfile> getPatientById(@PathVariable Long id) {
+        return ResponseEntity.ok(patientProfileService.getPatientById(id));
     }
-
+    
     @GetMapping
-    public List<PatientProfile> getAll() {
-        return service.getAllPatients();
+    @Operation(summary = "List all patients")
+    public ResponseEntity<List<PatientProfile>> getAllPatients() {
+        return ResponseEntity.ok(patientProfileService.getAllPatients());
     }
-
-    @PutMapping("/{id}/deactivate")
-    public PatientProfile deactivate(@PathVariable Long id) {
-        return service.deactivatePatient(id);
+    
+    @PutMapping("/{id}/status")
+    @Operation(summary = "Update patient status")
+    public ResponseEntity<PatientProfile> updatePatientStatus(@PathVariable Long id, @RequestBody Boolean active) {
+        return ResponseEntity.ok(patientProfileService.updatePatientStatus(id, active));
+    }
+    
+    @GetMapping("/lookup/{patientId}")
+    @Operation(summary = "Lookup patient by patientId")
+    public ResponseEntity<PatientProfile> findByPatientId(@PathVariable String patientId) {
+        return patientProfileService.findByPatientId(patientId)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
     }
 }

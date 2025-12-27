@@ -1,20 +1,19 @@
 package com.example.demo.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ApiErrorResponse {
-
+    
+    private LocalDateTime timestamp;
+    private int status;
+    private String error;
     private String message;
-
-    public ApiErrorResponse() {}
-
-    public ApiErrorResponse(String message) {
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
+    private String path;
 }
