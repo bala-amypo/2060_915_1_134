@@ -14,17 +14,17 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                // ✅ Allow Swagger
+               
                 .requestMatchers(
                     "/swagger-ui/**",
                     "/v3/api-docs/**",
                     "/swagger-ui.html"
                 ).permitAll()
 
-                // ✅ Allow servlet
+               
                 .requestMatchers("/status").permitAll()
 
-                // ❌ Everything else secured
+                
                 .anyRequest().authenticated()
             );
 
